@@ -25,6 +25,10 @@ func main() {
 
 	greet("welcome", "Sabuj", "Kabul", "Haem", "Malek", "Rohit")
 
+	// variadic args
+	students := []string{"Sabuj", "Kabul", "Haem", "Malek", "Rohit"}
+	greet("Hello", students...)
+
 }
 
 /*

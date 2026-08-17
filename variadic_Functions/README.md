@@ -69,6 +69,34 @@ greet("welcome", "Sabuj", "Kabul", "Haem", "Malek", "Rohit")
                                   └── students = ["Sabuj", "Kabul", "Haem", "Malek", "Rohit"]
 ```
 
+### 4. Variadic Args: Passing a Slice to a Variadic Function
+
+If you already have a slice, you can pass it directly using `...` to **unpack** it as variadic arguments.
+
+```go
+nums := []int{1, 2, 3, 4, 5}
+fmt.Println(add(nums...))  // 15
+```
+
+**How it works:**
+
+```
+nums = []int{1, 2, 3, 4, 5}
+
+add(nums...)  →  unpacks to  add(1, 2, 3, 4, 5)
+                                │
+                                └── numbers → []int{1, 2, 3, 4, 5}
+                                              1+2+3+4+5 = 15
+```
+
+**Variadic args vs regular args:**
+
+| Syntax | Meaning |
+|--------|---------|
+| `add(1, 2, 3)` | Individual arguments |
+| `add(nums...)` | Slice unpacked as variadic arguments |
+| `add(nums)` | WRONG - type mismatch, won't compile |
+
 ---
 
 ## Key Variadic Function Facts
