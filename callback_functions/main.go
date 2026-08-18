@@ -36,4 +36,10 @@ func main() {
 	result2 := calculate(20, 10, division)
 	fmt.Println(result2)
 
+	// anonymus callback functions
+	multiply := calculate(10, 20, func(x, y int) int {
+		return x * y
+	})
+
+	fmt.Println(multiply)
 }

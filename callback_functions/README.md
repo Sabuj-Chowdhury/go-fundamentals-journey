@@ -81,6 +81,69 @@ greet := func() {
 process(greet)  // prints: Hello
 ```
 
+### 5. Anonymous Callback: Inline Function
+
+Instead of assigning to a variable, pass the function **directly inline** to the caller.
+
+```go
+multiply := calculate(10, 20, func(x, y int) int {
+    return x * y
+})
+
+fmt.Println(multiply)  // 200
+```
+
+**How it works:**
+
+```
+calculate(10, 20, func(x, y int) int { return x * y })
+         │    │              │
+         │    │              └── operation = inline anonymous function
+         │    └───────────────── b = 20
+         └────────────────────── a = 10
+
+         operation(10, 20) → 10 * 20 → 200
+```
+
+This is the same as assigning the function to a variable first - just shorter when you only use it once.
+
+### 6. Higher-Order Functions (HOF)
+
+A **higher-order function** is any function that:
+1. **Takes a function as an argument**, or
+2. **Returns a function**
+
+`calculate` is a higher-order function because it takes a callback. Go has many built-in HOFs:
+
+```go
+// map - transforms each element
+nums := []int{1, 2, 3}
+doubled := map nums, func(n int) int { return n * 2 }
+
+// filter - keeps elements that match
+evens := filter nums, func(n int) bool { return n%2 == 0 }
+```
+
+**Key difference:**
+
+| Concept | Description |
+|---------|-------------|
+| Callback | A function passed as an argument (the *what*) |
+| Higher-Order Function | A function that accepts/returns other functions (the *how*) |
+
+A HOF is the **wrapper**, a callback is the **thing it wraps**.
+
+```
+HOF (Higher-Order Function)
+  └── accepts a Callback
+        └── uses it inside
+
+calculate()  ← HOF
+  └── operation()  ← Callback
+```
+
+In Go, all callback patterns use HOFs - they are two sides of the same coin.
+
 ---
 
 ## Key Callback Facts
@@ -97,6 +160,7 @@ process(greet)  // prints: Hello
 ```
 30
 2
+200
 ```
 
 ---
@@ -111,6 +175,7 @@ go run main.go
 
 - [Go by Example - Functions](https://gobyexample.com/functions)
 - [Go by Example - Closures](https://gobyexample.com/closures)
+- [Effective Go - Functions](https://go.dev/doc/effective_go#functions)
 - [Go Documentation](https://go.dev/doc/)
 
 ## Author
