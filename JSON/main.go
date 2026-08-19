@@ -13,17 +13,29 @@ type Person struct {
 
 func main() {
 
-	p1 := Person{
-		Name: "Sabuj",
-		Age:  32,
-		City: "Dhaka",
-	}
+	// p1 := Person{
+	// 	Name: "Sabuj",
+	// 	Age:  32,
+	// 	City: "Dhaka",
+	// }
 
-	rawBytes, err := json.Marshal(p1)
+	// rawBytes, err := json.Marshal(p1)
+
+	// if err != nil {
+	// 	fmt.Println("Error ", err)
+	// }
+	// fmt.Println(string(rawBytes))
+
+	jsonText := `{"name":"Sabuj","age":32,"city":"Dhaka"}`
+
+	var p2 Person
+
+	err := json.Unmarshal([]byte(jsonText), &p2)
 
 	if err != nil {
-		fmt.Println("Error ", err)
+		fmt.Println("error : ", err)
 	}
-	fmt.Println(string(rawBytes))
+
+	fmt.Printf("%+v", p2)
 
 }

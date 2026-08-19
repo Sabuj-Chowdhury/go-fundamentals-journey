@@ -62,6 +62,48 @@ type Person struct {
 fmt.Println(string(rawBytes))
 ```
 
+### 5. JSON to Struct with `json.Unmarshal`
+
+`json.Unmarshal` parses a JSON byte slice into a Go struct. You must pass a **pointer** (`&`) so the function can modify the struct.
+
+```go
+jsonText := `{"name":"Sabuj","age":32,"city":"Dhaka"}`
+
+var p2 Person
+
+err := json.Unmarshal([]byte(jsonText), &p2)
+if err != nil {
+    fmt.Println("error : ", err)
+}
+
+fmt.Printf("%+v", p2)
+```
+
+**How it works:**
+
+```
+jsonText = {"name":"Sabuj","age":32,"city":"Dhaka"}
+                      │
+           json.Unmarshal([]byte, &p2)
+                      │
+                      ▼
+        ┌──────────────────────────┐
+        │  Name: "Sabuj"           │
+        │  Age:  32                │
+        │  City: "Dhaka"           │
+        └──────────────────────────┘
+```
+
+**Why `&p2`?** `json.Unmarshal` needs to write into the variable, so a pointer is required. Without it, the struct stays empty.
+
+```go
+// WRONG - struct won't be filled
+json.Unmarshal([]byte(jsonText), p2)
+
+// CORRECT
+json.Unmarshal([]byte(jsonText), &p2)
+```
+
 ---
 
 ## Key JSON Facts
@@ -81,7 +123,7 @@ fmt.Println(string(rawBytes))
 ## Expected Output
 
 ```
-{"name":"Sabuj","age":32,"city":"Dhaka"}
+{Name:Sabuj Age:32 City:Dhaka}
 ```
 
 ---
